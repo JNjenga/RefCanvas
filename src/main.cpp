@@ -49,21 +49,39 @@ void update()
 	// Panning over the world
 	if(st->keys[GLFW_MOUSE_BUTTON_MIDDLE] == K_PRESS)
 	{
-			v_mat = glm::translate(v_mat, glm::vec3(st->dmx, st->dmy, 0.0f));
+        v_mat = glm::translate(v_mat, glm::vec3(st->dmx, st->dmy, 0.0f));
 
-		set_uniform("v_mat", v_mat);
+        set_uniform("v_mat", v_mat);
 	}
 
-	// Deleting, key x
-	if(st->keys[GLFW_KEY_X] == K_PRESS)
-	{
-		if(selected != -1)
-		{
-			glDeleteTextures(1, &(GLuint)items[selected].t);
-			items.erase(items.begin()+selected);
-			selected = -1;
-		}
-	}
+    // Deleting, key x
+
+    // Deleting, moving, scaling up and scaling down and object
+    if(selected != -1 )
+    {
+        
+        if(st->keys[GLFW_KEY_X] == K_PRESS) 
+        {
+            glDeleteTextures(1, &(GLuint)items[selected].t);
+            items.erase(items.begin()+selected);
+            selected = -1;
+        }
+        else if(st->keys[GLFW_KEY_G] == K_PRESS)
+        {
+            items[selected].x += st->dmx;
+            items[selected].y += st->dmy;
+        }
+        else if(st->keys[GLFW_KEY_J] == K_PRESS)
+        {
+            items[selected].sx += 5.0f;
+            items[selected].sy += 5.0f;
+        }
+        else if(st->keys[GLFW_KEY_K] == K_PRESS)
+        {
+            items[selected].sx -= 10.2f;
+            items[selected].sy -= 10.2f;
+        }
+    }
 
 	st->dmx = 0.0f;
 	st->dmy = 0.0f;
@@ -89,58 +107,42 @@ int main()
 
 		for(Item & i : items)
         {
-            render_quad(i.x, i.y, i.sx, i.sy, i.r,i.t, i.selected);
+			// Clear selection 
+            if(st->keys[GLFW_MOUSE_BUTTON_LEFT] == K_PRESS)
+            {
+                if(is_hovered(i.x, i.y, i.sx, i.sy))
+                {
+                    if(selected == -1)
+                    {
+                        i.selected = true;
+                        selected = index;
+                    }
+                    else if(selected == index )
+                    {
+                        i.selected = false; // Disable preselected
+                        selected = -1;
+                    }
+                    else
+                    {
+                        items[selected].selected = false; // Disable preselected
+                        i.selected = true; // Disable preselected
+                        selected = index;
+                    }
+                }
+            }
 
-			// Check selected item
-			if(st->keys[GLFW_MOUSE_BUTTON_RIGHT] == K_PRESS)
-			{
-				i.selected = false;
-				selected = -1;
-			}
-
-			else if(st->keys[GLFW_MOUSE_BUTTON_LEFT] == K_PRESS)
-			{
-				if(selected == index)
-				{
-					i.selected = false;
-					selected = -1;
-				}
-				else if(is_hovered(i.x, i.y, i.sx, i.sy))
-				{
-					// items[selected].selected = false;
-					selected = index;
-					i.selected = true;
-				}
-			}
+            render_quad(i.x, i.y, i.sx, i.sy, i.r,i.t, i.selected); 
 
 			index++;
         }
 
-		if(selected != -1 )
-		{
-			if(st->keys[GLFW_KEY_G] == K_PRESS)
-			{
-				items[selected].x += st->dmx;
-				items[selected].y += st->dmy;
-			}
-			else if(st->keys[GLFW_KEY_J] == K_PRESS)
-			{
-				items[selected].sx += 5.0f;
-				items[selected].sy += 5.0f;
-			}
-			else if(st->keys[GLFW_KEY_K] == K_PRESS)
-			{
-				items[selected].sx -= 10.2f;
-				items[selected].sy -= 10.2f;
-			}
-		}
+		index = 0;
 
 		update();
 
 		// glCheckError();
         glfwSwapBuffers(window);
         glfwPollEvents();
-		index = 0;
 	}
 
 	glfwTerminate();
