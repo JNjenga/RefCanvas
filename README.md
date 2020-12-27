@@ -4,8 +4,7 @@
 
 This is a tool that allows artists to stack a bunch of images on a window for reference purposes. It's still in development.
 
-**NOTE : **
- *This tool is still being developed*
+**NOTE :** *This tool is still being developed*
 
 
 # How to build
