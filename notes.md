@@ -7,9 +7,14 @@
 - Load from url
 - UI settings
 
-# Candidates for next spring
+# Candidates for next sprint
 - Better method for tracking item selection
 - Create a camera, panning, endless world
+
+## 27th Dec 2020
+- Create a view matrix
+- Panning using the view matrix
+- Deleting a selected item
 
 ## 26th Dec 2020
 - Dirty hack selection of items
