@@ -19,6 +19,9 @@ int selected = -1;
 
 extern Gsettings * st;
 
+glm::mat4 v_mat;
+float cdx = 0.0f, cdy = 0.0f;
+
 void resize_clb(GLFWwindow*win, int w, int h)
 {
 	glViewport(0,0,w,h);
@@ -50,27 +53,57 @@ void mpos_clb(GLFWwindow* win, double xpos, double ypos)
 
 }
 
+void update()
+{
+	// Panning over the world
+	if(st->keys[GLFW_MOUSE_BUTTON_MIDDLE] == K_PRESS)
+	{
+			v_mat = glm::translate(v_mat, glm::vec3(st->dmx, st->dmy, 0.0f));
+
+		set_uniform("v_mat", v_mat);
+	}
+
+	// Deleting, key x
+	if(st->keys[GLFW_KEY_X] == K_PRESS)
+	{
+		if(selected != -1)
+		{
+			glDeleteTextures(1, &(GLuint)items[selected].t);
+			items.erase(items.begin()+selected);
+			selected = -1;
+		}
+	}
+
+	st->dmx = 0.0f;
+	st->dmy = 0.0f;
+}
+
 int main()
 {
 	GLFWwindow * window = init_engine(720, 720);
-		glCheckError();
+	glCheckError();
 
 	if(window == NULL)
 		return -1;
 
     glClearColor(0.0f, 0.7f, 0.6f, 1.0f);
 
+	// Initialize variables
+	v_mat = glm::mat4(1.0f);
+
 	int index = 0; 
 	while(!glfwWindowShouldClose(window))
 	{
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        for(Item & i : items)
+
+		for(Item & i : items)
         {
             render_quad(i.x, i.y, i.sx, i.sy, i.r,i.t, i.selected);
 
 			// Check selected item
 			if(st->keys[GLFW_MOUSE_BUTTON_RIGHT] == K_PRESS)
 			{
+				i.selected = false;
 				selected = -1;
 			}
 
@@ -81,9 +114,9 @@ int main()
 					i.selected = false;
 					selected = -1;
 				}
-				else if(st->mx >= i.x && st->mx < (i.x + i.sx) && 
-					st->my >= i.y && st->my < (i.y + i.sy))
+				else if(is_hovered(i.x, i.y, i.sx, i.sy))
 				{
+					items[selected].selected = false;
 					selected = index;
 					i.selected = true;
 				}
@@ -110,7 +143,10 @@ int main()
 				items[selected].sy -= 10.2f;
 			}
 		}
-		glCheckError();
+
+		update();
+
+		// glCheckError();
         glfwSwapBuffers(window);
         glfwPollEvents();
 		index = 0;

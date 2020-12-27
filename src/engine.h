@@ -26,14 +26,17 @@ struct Gsettings
 	int scr_height;
 	int scr_width;
 };
+
 #define K_PRESS 1
 #define K_RELEASE 0
+
 GLFWwindow * init_engine(int width, int height);
 // extern void mpos_clb(GLFWwindow* win, double xpos, double ypos);
 void mkey_clb(GLFWwindow * w, int button, int action, int mods);
 void key_clb(GLFWwindow * w, int key, int scancode, int action, int modes);
 
 void on_exit();
+bool is_hovered(float x, float y, float sx, float sy);
 
 // Shader stuff
 int create_shader();

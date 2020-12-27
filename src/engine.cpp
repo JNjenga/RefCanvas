@@ -112,12 +112,12 @@ int create_shader()
 		"layout (location = 0) in vec3 aPos;\n"
 		"layout (location = 1) in vec2 aTexCoord;\n"
 		"uniform mat4 m_mat = mat4(1.0f);\n"
-		"uniform mat4 v_mat;\n"
+		"uniform mat4 v_mat = mat4(1.0f);;\n"
 		"uniform mat4 p_mat = mat4(1.0f);\n"
 		"out vec2 tex_coord;\n"
 		"void main()\n"
 		"{\n"
-		"   gl_Position = p_mat * m_mat * vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+		"   gl_Position = p_mat * v_mat * m_mat * vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
 		"   tex_coord =  aTexCoord;\n"
 		"}\0";
 
@@ -340,4 +340,14 @@ void on_exit()
 {
     delete [] st->keys;
     delete st;
+}
+
+bool is_hovered(float x, float y, float sx, float sy)
+{
+    if(st->mx >= x && st->mx < (x + sx) && st->my >= y && st->my < (y + sy))
+    {
+        return true;
+    }
+
+    return false;
 }
