@@ -86,7 +86,7 @@ int main()
 	if(window == NULL)
 		return -1;
 
-    glClearColor(0.0f, 0.7f, 0.6f, 1.0f);
+    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 
 	// Initialize variables
 	v_mat = glm::mat4(1.0f);
@@ -116,7 +116,7 @@ int main()
 				}
 				else if(is_hovered(i.x, i.y, i.sx, i.sy))
 				{
-					items[selected].selected = false;
+					// items[selected].selected = false;
 					selected = index;
 					i.selected = true;
 				}
