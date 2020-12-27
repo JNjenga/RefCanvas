@@ -5,3 +5,5 @@ cp -r assets bin
 MsBuild workspace\ReferencePal.sln -v:m
 if %ERRORLEVEL% EQU 0 call .\bin\referencepal.exe
 
+exit
+

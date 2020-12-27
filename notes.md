@@ -9,7 +9,10 @@
 
 # Candidates for next sprint
 - Better method for tracking item selection
-- Create a camera, panning, endless world
+- Make the engine more reusable, in other projects
+
+## 28th Dec 2020
+- Improvement of selection, not yet there
 
 ## 27th Dec 2020
 - Create a view matrix
