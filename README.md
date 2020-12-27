@@ -1,33 +1,58 @@
-# rubik-cube-game
+# RefCanvas
+---
+![Screenshot](docs/screenshot.png)
 
-An implementation of the Rubik's cube puzzle game 
+This is a tool that allows artists to stack a bunch of images on a window for reference purposes. It's still in development.
 
-## Setting up
+**NOTE : **
+ *This tool is still being developed*
 
-### Windows
 
-- Run the following command to generate visual studio solution
+# How to build
+---
 
-```./deps/premake5.exe vs2017```
+If testing on linux you need to install [Glfw3](https://www.glfw.org/) and [Glew](http://glew.sourceforge.net/) libraries.
 
-Substitute vs2017 with your vs version for example vs2019 if its the 2019 version.
+To test out the application :
+Clone it :
+```bash
+git clone https://github.com/JNjenga/RefCanvas.git # Clone it
+```
+Use premake to generate project files for your enviroment:
+```bash
+premake5 vs2017
+```
+or 
+```bash
+premake5 gmake2
+```
+The project file will be created in `workspace` directory.
 
-		
-- A `workspace` directory will be created containing the visual studio project files.
-- Open the `Rubik.sln` to open the project
-- Run to test out the project
+If on windows build using visual studio, if on linux use make. 
 
-### NIX systems
+# Usage
+Drag and drop images on to the window.
 
-- Install dependancies :
-```$ sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev libglew-dev```
+## Keys
 
-- Run the following command to generate a make file
+- `MIDDLE_MOUSE_BTN` & move mouse  - Panning around the world
+- `LEFT_MOUSE_BTN` - Select image
+- `X` - Remove image
+- `G` & move mouse - Move selected image
+- `J` - Scale up selected image
+- `K` - Scale down selected image
 
-```./deps/premake5 gmake2```
 
-- A `workspace` directory will be created containing the project make files.
 
-- To run the project run the following command:
+# Built with
+- C++
+- Opengl
+- [GLFW 3](https://www.glfw.org/)
+- [STB image](https://github.com/nothings/stb/blob/master/stb_image.h)
+- [GLM](https://glm.g-truc.net/0.9.9/index.html)
 
-```make --directory=workspace run```
+# Contact
+James Njenga - see [https://jnjenga.com/about#contacts](https://jnjenga.com/about#contacts)
+
+# License
+Distributed under the MIT License. See `LICENSE` for more information.
