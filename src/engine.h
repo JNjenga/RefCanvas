@@ -34,6 +34,7 @@ GLFWwindow * init_engine(int width, int height);
 // extern void mpos_clb(GLFWwindow* win, double xpos, double ypos);
 void mkey_clb(GLFWwindow * w, int button, int action, int mods);
 void key_clb(GLFWwindow * w, int key, int scancode, int action, int modes);
+void resize_clb(GLFWwindow*win, int w, int h);
 
 void on_exit();
 bool is_hovered(float x, float y, float sx, float sy);

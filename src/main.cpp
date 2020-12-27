@@ -20,15 +20,6 @@ int selected = -1;
 extern Gsettings * st;
 
 glm::mat4 v_mat;
-float cdx = 0.0f, cdy = 0.0f;
-
-void resize_clb(GLFWwindow*win, int w, int h)
-{
-	glViewport(0,0,w,h);
-	st->scr_height = h;
-	st->scr_width= w;
-
-}
 
 void drop_clb(GLFWwindow * win, int count, const char ** paths)
 {

@@ -39,7 +39,14 @@ void mkey_clb(GLFWwindow * w, int button, int action, int mods)
     }
 }
 
-extern void resize_clb(GLFWwindow*win, int w, int h);
+
+void resize_clb(GLFWwindow*win, int w, int h)
+{
+	glViewport(0,0,w,h);
+	st->scr_height = h;
+	st->scr_width= w;
+
+}
 extern void drop_clb(GLFWwindow * win, int count, const char ** paths);
 
 extern void mpos_clb(GLFWwindow* win, double xpos, double ypos);
@@ -272,7 +279,7 @@ void render_texture(int texture)
 	glActiveTexture(GL_TEXTURE0);
 
     glBindTexture(GL_TEXTURE_2D, texture);
-	glUseProgram(shader_id);
+	// glUseProgram(shader_id);
 
 	glBindVertexArray(quad_id);
 	// glDrawElements(GL_TRIANGLES, 24, GL_UNSIGNED_INT, 0);
@@ -285,7 +292,7 @@ void render_quad(float x, float y, float sx, float sy, float r, int t, bool sele
 	glActiveTexture(GL_TEXTURE0);
 
     glBindTexture(GL_TEXTURE_2D, t);
-	glUseProgram(shader_id);
+	// glUseProgram(shader_id);
     if(selected)
         set_uniform("selected", 1);
     else
