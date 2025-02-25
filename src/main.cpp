@@ -62,7 +62,8 @@ void update()
         
         if(st->keys[GLFW_KEY_X] == K_PRESS) 
         {
-            glDeleteTextures(1, &(GLuint)items[selected].t);
+            GLuint texture_id = (GLuint) items[selected].t;
+            glDeleteTextures(1, &texture_id);
             items.erase(items.begin()+selected);
             selected = -1;
         }
